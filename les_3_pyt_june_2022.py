@@ -420,7 +420,128 @@
 #
 # print(user.name)
 
-# 53.20
+
+
+                    #  #      статичний метод
+
+# class User:
+#     count = 0
+#
+#     def __init__(self, name, age):
+#         self.name = name
+#         self.age = age
+#
+#     def set_name(self, new_name):
+#        self.name = new_name
+#     @staticmethod
+#     def greeting():             # додамо до попереднього прикладу метод greeting, який буде казати hello
+#         print('Hello')              # pycharm підкреслює, що цей метод мав би бути статичним, тому  що я в ньому
+#                                     # використовую ні змінних класу ні змінних екзкмпляру класу, в ньому немає бути ні
+#                                     # ні self ні cls. Коли перед методом поставити @staticmethod тоді self згас і
+#                                     # його можна забрати
+#
+#     @classmethod
+#     def get_count(cls):
+#         return cls.count
+#
+# user = User('Max', 15)
+# User.greeting()             # статичні методи можна викликати від імені класу та від імені екземпляра класу (наст рядок)
+# user.greeting()
+
+
+#  # перевантаження методів
+
+# class User:         # сінглтон патерн - не дає створювати декілька екземплярів класу
+#     __instance = None       # приватна змінна = None
+#
+#     def __new__(cls, *args, **kwargs):      # перевантаження методів new відповідає за те
+#                                             # коли створюється екземпляр класу
+#            if not isinstance(cls.__instance, cls):          # якщо ти не будеш instance, звертаюсь до свого класу
+#                                                             # до його __instance і порівнюю його з самим собою
+#                 cls.__instance = super().__new__(cls)       # тоді викликаємо свій клас, з нього його __instance,
+#                                                             # який буде дорівнювати супер констрктору свого батька
+#                                                    # викликаю стандартний метод __new__ і в нього кладу свій клас cls
+#                 return cls.__instance               # повертаю свій __instance
+#            else:                                         # інакше повертаю свій __instance.
+#                 return cls.__instance                       #Так ніколи не створиться 2 екземпляри класу
+#
+#     def __init__(self, name):
+#         self.name = name
+#
+# user1 = User('Max')
+# user2 = User('Ira')
+#
+# print(user1.name)
+# print(user2.name)
+#
+#                                                 # init змінюється ім'я для обох
+# print(id(user1))
+# print(id(user2))                                # id однакові 1781026275856
+
+
+# # можемо змушувати працювати екземпляри класу як функції
+
+# class Test:
+#     def __init__(self, value):
+#         self.value = value
+#
+#     def __call__(self, nulti):            # перевантаження методів call - може бути ф-цією
+#         return self.value * nulti           # call  буде повертати значення * nulti
+#
+#
+# test = Test(5)                             # створюю екземпляр класу test передаю в нього 5
+# test(3)                                     # оскільки call це ф-ція,то ми в nulti передаємо 3
+# # print(test.value)             # рез 5
+# print(test(3))                  # рез 15
+
+                    # # математичні опереації
+class User:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def __len__(self):               # дандерметод len
+        return len(self.name)             # повертає ф-цію len для свого імені
+                                           #  # потрібно щоб наш клас реагував на довжину рядка
+        # return self.age               # так виведе вік
+
+    def __add__(self, other):       # add додати, self -мій екземпляр класу, other - інший екземпляр класу
+        return self.age + other.age     # буде до нашого age(нашого класу)  додавати other це те що після плюса
+
+    def __sub__(self, other):       # sub відняти, self -мій екземпляр класу, other - інший екземпляр класу
+        return self.age - other.age     # буде від нашого age(нашого класу) віднімати other це те що після плюса
+
+    def __lt__(self, other):       # lt менше, self -мій екземпляр класу, other - інший екземпляр класу
+        return self.age < other.age     # буде порівнювати наш age(нашого класу) та other це те що після знаку <
+
+    # def __lte__(self, other):         # ltе менше рівне
+    # def __gt__(self, other):          # gt більше
+    # def __gte__(self, other):         # gtе більше рівне
+    # def __eq__(self, other):          # eq дорівнює
+    # def __neq__(self, other):         # neq не дорівнює  це перевантаження методів, ми можемо вчити екземпляри
+                                         # класів реагувати на різні фактори
+
+
+
+user = User ('Max', 15)         # створюємо екземпляр класу user
+print(len(user))                # використаю ф-цію len і передам сюди екземпляр класу user все це виведемо
+                                # помилка, бо об'єкт user не використовується в такому варіанті.
+                                # можна це зробити за допомогою дандер метода len, запишемо його вище
+                                # тепер нам повертає довжину імені - 3
+
+user2 = User('Ira', 30)
+print(user + user2)        # поки що не знає як додати, потрібно переписати перевантаження методів, яке називається add
+                            # рез буде 45
+print(user - user2)             # рез буде -15
+print(user < user2)             # True
+print(user > user2)             # False
+
+
+
+
+
+
+# 55.46
 
 # 48.34
 
