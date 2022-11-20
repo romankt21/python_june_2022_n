@@ -585,10 +585,23 @@ kkh
 #
 # print(t)              # отримали кортеж з 3-х елементів (0, 1, 2)
 
-dict1 = {'Name': 'Max', 'aGE': 18}
+# dict1 = {'Name': 'Max', 'aGE': 18}
+#
+# dict2 = {k.lower():v for  k, v in dict1.items()}     # буду звертатись до ключа, до його метода lower-переводити в нижній регістр
+#
+# print(dict2)            # {'name': 'Max', 'age': 18}
 
-dict2 = {}
 
+# enumerate присвоєння індексу
 
+l = [12, 45, 123, 7, 3, 66]
+
+for i, v in enumerate(l):
+    print(i, v)         # 0 12
+                        # 1 45
+                        # 2 123
+                        # 3 7
+                        # 4 3
+                        # 5 66
 
 # 1.45.18
